@@ -1,8 +1,6 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-
-import torchvision.transforms as transforms
 import argparse
 import cv2
 import glob
@@ -184,11 +182,11 @@ class UpBlock(nn.Module):
         return upE
 
 
-# Define the Encoder part
-class SalsaEncoder(nn.Module):
-    def __init__(self, inchannels=5):
-        super(SalsaEncoder, self).__init__()
-        self.inchannels = inchannels
+class Salsa(nn.Module):
+    def __init__(self, nclasses=20,inchannels=5):
+        super(Salsa, self).__init__()
+        self.nclasses = nclasses
+
         self.downCntx = ResContextBlock(inchannels, 32)
         self.downCntx2 = ResContextBlock(32, 32)
         self.downCntx3 = ResContextBlock(32, 32)
@@ -198,6 +196,13 @@ class SalsaEncoder(nn.Module):
         self.resBlock3 = ResBlock(2 * 2 * 32, 2 * 4 * 32, 0.2, pooling=True)
         self.resBlock4 = ResBlock(2 * 4 * 32, 2 * 4 * 32, 0.2, pooling=True)
         self.resBlock5 = ResBlock(2 * 4 * 32, 2 * 4 * 32, 0.2, pooling=False)
+
+        self.upBlock1 = UpBlock(2 * 4 * 32, 4 * 32, 0.2)
+        self.upBlock2 = UpBlock(4 * 32, 4 * 32, 0.2)
+        self.upBlock3 = UpBlock(4 * 32, 2 * 32, 0.2)
+        self.upBlock4 = UpBlock(2 * 32, 32, 0.2, drop_out=False)
+
+        self.logits = nn.Conv2d(32, nclasses, kernel_size=(1, 1))
 
     def forward(self, x):
         downCntx = self.downCntx(x)
@@ -210,41 +215,12 @@ class SalsaEncoder(nn.Module):
         down3c, down3b = self.resBlock4(down2c)
         down5c = self.resBlock5(down3c)
 
-        return down5c, [down3b, down2b, down1b, down0b]  # Feature maps to pass to the decoder
-
-
-# Define the Decoder part
-class SalsaDecoder(nn.Module):
-    def __init__(self, nclasses=20):
-        super(SalsaDecoder, self).__init__()
-        self.upBlock1 = UpBlock(2 * 4 * 32, 4 * 32, 0.2)
-        self.upBlock2 = UpBlock(4 * 32, 4 * 32, 0.2)
-        self.upBlock3 = UpBlock(4 * 32, 2 * 32, 0.2)
-        self.upBlock4 = UpBlock(2 * 32, 32, 0.2, drop_out=False)
-
-        self.logits = nn.Conv2d(32, nclasses, kernel_size=(1, 1))
-
-    def forward(self, x, encoder_features):
-        down3b, down2b, down1b, down0b = encoder_features
-        
-        up4e = self.upBlock1(x, down3b)
+        up4e = self.upBlock1(down5c,down3b)
         up3e = self.upBlock2(up4e, down2b)
         up2e = self.upBlock3(up3e, down1b)
         up1e = self.upBlock4(up2e, down0b)
         logits = self.logits(up1e)
 
-        return logits
-
-
-class Salsa(nn.Module):
-    def __init__(self, nclasses=20, inchannels=5):
-        super(Salsa, self).__init__()
-        self.encoder = SalsaEncoder(inchannels)
-        self.decoder = SalsaDecoder(nclasses)
-
-    def forward(self, x):
-        encoder_output, encoder_features = self.encoder(x)
-        logits = self.decoder(encoder_output, encoder_features)
         return logits
 
 
