@@ -257,3 +257,24 @@ class HydraSalsa(nn.Module):
         logits1,logits2 = self.salsa(x)
         probs1,probs2 = F.softmax(logits1, dim=1), F.softmax(logits2, dim=1)
         return probs1, probs2
+
+
+class SalsaK(nn.Module):
+    def __init__(self, nclasses=20, inchannels=5):
+        super(SalsaK, self).__init__()
+        self.encoder = SalsaEncoder(inchannels)
+        self.decoder1 = SalsaDecoder(nclasses)
+
+    def forward(self, x):
+        encoder_output, encoder_features = self.encoder(x)
+        logits1 = self.decoder1(encoder_output, encoder_features)
+        return logits1
+
+class SalsaNext(nn.Module):
+    def __init__(self, nclasses=20, inchannels=5):
+        super(SalsaNext, self).__init__()
+        self.salsa = SalsaK(nclasses,inchannels)
+
+    def forward(self, x):
+        logits1 = self.salsa(x)
+        return logits1
