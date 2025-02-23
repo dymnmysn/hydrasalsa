@@ -20,17 +20,19 @@ For quantization and deployment steps, please refer to [MiDaSFPGA](https://githu
 
 This repository includes code adapted from [SalsaNext](https://github.com/TiagoCortinhal/SalsaNext.git). We acknowledge the original authors for their contributions to the development of SalsaNext.
 
-## Cite This Work
+## Cite This Work 
 
-If you use this code or any of the models, please cite our paper:
+If you use this code or any of the models, please cite our paper:  
 
-@ARTICLE {hydrafpga,  
-          author = "Adiyaman MY., Baskaya F.",    
-          title = "FPGA Implementation of Double-Head SalsaNext: A CNN-Based Model for LiDAR Point Cloud Segmentation",    
-          journal = "...",    
-          year = "2025",    
-          volume = "...",   
-          number = "..." }  
+```bibtex
+@ARTICLE{hydrafpga,  
+    author = "Adiyaman, M.Y. and Baskaya, F.",  
+    title = "FPGA Implementation of Double-Head SalsaNext: A CNN-Based Model for LiDAR Point Cloud Segmentation",  
+    journal = "...",  
+    year = "2025",  
+    volume = "...",  
+    number = "..."  
+}
 
 
 ## License
