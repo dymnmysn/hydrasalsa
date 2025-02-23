@@ -1,29 +1,15 @@
-import os
 import sys
-import yaml
+
 from HydraSalsa import HydraSalsa
 sys.path.append('/ari/users/ibaskaya/projeler/hydrasalsa/utils')
 
-import numpy as np
 import torch
-import torch.nn.functional as F
 import torch.nn as nn
 import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm
-from glob import glob
 
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
-import cv2
-from fastfill import FastFill
-from scale3d import RandomRescaleRangeImage
-from dskittiwaymo import SegmentationDataset
-
-from metric_miou import calculate_classwise_intersection_union,calculate_final_miou_from_batches, calculate_miou
-from printiou import print_miou_kitti as print_miou_results
 from lovasz import Lovasz_softmax
-from parser1 import Parser
+from parser import Parser
 from mappings import kitti, kitti_normalized_frequencies ,kitticolormap,sem2sem, kitti_lm_inv,waymocolormap,waymo,sensor_kitti,sensor_waymo,waymo_lmap, waymo_lmap_inv,waymovalidfreqs
 from iou_eval import iouEval
 from combinedloader import KittiWaymoTrainLoader
