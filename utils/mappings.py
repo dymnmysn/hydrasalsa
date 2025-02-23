@@ -314,7 +314,30 @@ sem2sem = {
     259: 5     # "moving-other-vehicle" to "other-vehicle" ----------------mapped
 }
 
-color_map={
+kitti_lm_inv = {
+  0: 0,      # "unlabeled", and others ignored
+  1: 10 ,    # "car"
+  2: 11  ,   # "bicycle"
+  3: 15   ,  # "motorcycle"
+  4: 18    , # "truck"
+  5: 20     ,# "other-vehicle"
+  6: 30     ,# "person"
+  7: 31 ,    # "bicyclist"
+  8: 32  ,   # "motorcyclist"
+  9: 40   ,  # "road"
+  10: 44   , # "parking"
+  11: 48   , # "sidewalk"
+  12: 49 ,   # "other-ground"
+  13: 50  ,  # "building"
+  14: 51   , # "fence"
+  15: 70    ,# "vegetation"
+  16: 71   , # "trunk"
+  17: 72    ,# "terrain"
+  18: 80    ,# "pole"
+  19: 81    # "traffic-sign"
+}
+
+kitticolormap={
   0: [0, 0, 0],
   1: [0, 0, 255],
   10: [245, 150, 100],
@@ -349,6 +372,36 @@ color_map={
   257: [250, 80, 100],
   258: [180, 30, 80],
   259: [255, 0, 0]}
+
+waymocolormap={
+  0: [0, 0, 0],
+  1: [0, 0, 255],
+  2: [245, 150, 100],
+  3: [245, 230, 100],
+  4: [250, 80, 100],
+  5: [150, 60, 30],
+  6: [255, 0, 0],
+  7: [180, 30, 80],
+  8: [255, 0, 0],
+  9: [30, 30, 255],
+  10: [200, 40, 255],
+  11: [90, 30, 150],
+  12: [255, 0, 255],
+  13: [255, 150, 255],
+  14: [75, 0, 75],
+  15: [75, 0, 175],
+  16: [0, 200, 255],
+  17: [50, 120, 255],
+  18: [0, 150, 255],
+  19: [170, 255, 150],
+  20: [0, 175, 0],
+  21: [0, 60, 135],
+  22: [80, 240, 150]}
+
+
+
+
+
 waymovalidfreqs = [160951307,
  69475897,
  7765250,
@@ -373,6 +426,74 @@ waymovalidfreqs = [160951307,
  74503790,
  45916607]
 
+sensor_kitti={
+    'name': "HDL64",
+    'type': "spherical" ,
+    'fov_up': 3,
+    'fov_down': -25,
+    'img_prop': {
+      'width': 2048,
+      'height': 64},
+    'img_means':[ #range,x,y,z,signal
+       12.12,
+       10.88,
+       0.23,
+       -1.04,
+       0.21],
+    'img_stds':[ #range,x,y,z,signal
+       12.32,
+       11.47,
+       6.91,
+       0.86,
+       0.16]
+}
+
+sensor_waymo={
+    'name': "HDL64",
+    'type': "spherical" ,
+    'fov_up': 3,
+    'fov_down': -25,
+    'img_prop': {
+      'width': 2048,
+      'height': 64},
+    'img_means':[ #range,x,y,z,signal
+       20.121,
+       1.74,
+       1.06,
+       0.288,
+       0.14],
+    'img_stds':[ #range,x,y,z,signal
+       13.786,
+       16.81,
+       14.05,
+       3.134,
+       0.125]
+}
+
+kitti_normalized_frequencies = [0.03150183342534689,
+                                0.042607828674502385,
+                                0.00016609538710764618,
+                                0.00039838616015114444,
+                                0.0021649398241338114,
+                                0.0018070552978863615,
+                                0.0003375832743104974,
+                                0.00012711105887399155,
+                                3.746106399997359e-05,
+                                0.19879647126983288,
+                                0.014717169549888214,
+                                0.14392298360372,
+                                0.0039048553037472045,
+                                0.1326861944777486,
+                                0.0723592229456223,
+                                0.26681502148037506,
+                                0.006035012012626033,
+                                0.07814222006271769,
+                                0.002855498193863172,
+                                0.0006155958086189918]
+
+waymo_lmap = {i:i for i in range(23)}
+waymo_lmap_inv = {i:i for i in range(23)}
+
 
 w2k = {k: kitti_inv[waymo2kitti[waymo[k]]] for k in waymo.keys()}
 sq_w2k = {k: sem2sem[w2k[k]] for k in w2k.keys()}
@@ -383,10 +504,10 @@ sq_k2w = k2w
 w2k_safe = {k: kitti_inv[waymo2kitti_safe[waymo[k]]] for k in waymo.keys()}
 sq_w2k_safe = {k: sem2sem[w2k_safe[k]] for k in w2k.keys()}
 
-k2w_safe = {k: waymo_inv[kitti2waymo_safe[kitti[k]]] for k in kitti.keys()}
-sq_k2w_safe = k2w_safe
-
 w2k_mid = {k: kitti_inv[waymo2kitti_mid[waymo[k]]] for k in waymo.keys()}
 sq_w2k_mid = {k: sem2sem[w2k_mid[k]] for k in w2k.keys()}
+
+k2w_safe = {k: waymo_inv[kitti2waymo_safe[kitti[k]]] for k in kitti.keys()}
+sq_k2w_safe = k2w_safe
 
 

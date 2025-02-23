@@ -1,7 +1,7 @@
 import sys
 
 from HydraSalsa import HydraSalsa
-sys.path.append('/ari/users/ibaskaya/projeler/hydrasalsa/utils')
+sys.path.append('/arf/home/myadiyaman/projeler/hydrasalsa/utils')
 
 import torch
 import torch.nn as nn

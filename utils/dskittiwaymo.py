@@ -1,4 +1,4 @@
-from mappings import sq_w2k, sq_k2w, sem2sem
+from utils.mappings_old import sq_w2k, sq_k2w, sem2sem
 from torch.utils.data import Dataset
 import torch
 import numpy as np

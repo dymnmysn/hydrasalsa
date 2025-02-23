@@ -18,7 +18,7 @@ import warnings
 
 #BURA
 import sys
-sys.path.append('/ari/users/ibaskaya/projeler/hydrasalsa/utils')
+sys.path.append('/arf/home/myadiyaman/projeler/hydrasalsa/utils')
 from laserscan import SemLaserScan, SemLaserScanWaymo, LaserScan, LaserScanWaymo
 
 EXTENSIONS_SCAN = ['.bin','.npz']
