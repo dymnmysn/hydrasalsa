@@ -2,7 +2,7 @@
 
 This repository contains code to FPGA implementation of a customized double-head version of SalsaNext model for semantic segmentation from LIDAR range images. The figure below shows the architecture of the model.
 <p align="center">
-  <img src="figures/sonsalsa9.png" alt="Example Image" width="75%" />
+  <img src="figures/sonsalsa9.png" alt="Example Image" width="60%" />
 </p>
 
 The proposed pipeline is given below. For further details please check the paper.
