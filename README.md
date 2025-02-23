@@ -25,12 +25,12 @@ This repository includes code adapted from [SalsaNext](https://github.com/TiagoC
 If you use this code or any of the models, please cite our paper:
 
 @ARTICLE {hydrafpga,  
-author = "Adiyaman MY., Baskaya F.",    
-title = "FPGA Implementation of Double-Head SalsaNext: A CNN-Based Model for LiDAR Point Cloud Segmentation",    
-journal = "...",    
-year = "2025",    
-volume = "...",   
-number = "..." }  
+          author = "Adiyaman MY., Baskaya F.",    
+          title = "FPGA Implementation of Double-Head SalsaNext: A CNN-Based Model for LiDAR Point Cloud Segmentation",    
+          journal = "...",    
+          year = "2025",    
+          volume = "...",   
+          number = "..." }  
 
 
 ## License
