@@ -5,8 +5,13 @@ This repository contains code to FPGA implementation of a customized double-head
   <img src="figures/sonsalsa9.png" alt="Example Image" width="75%" />
 </p>
 
+The proposed pipeline is given below. For further details please check the paper.
+<p align="center">
+  <img src="figures/all3.png" alt="Example Image" width="90%" />
+</p>
 
-## Usage
+
+## Proposed Pipeline
 
 ### Quantization
 
