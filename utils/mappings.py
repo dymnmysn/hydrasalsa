@@ -509,5 +509,3 @@ sq_w2k_mid = {k: sem2sem[w2k_mid[k]] for k in w2k.keys()}
 
 k2w_safe = {k: waymo_inv[kitti2waymo_safe[kitti[k]]] for k in kitti.keys()}
 sq_k2w_safe = k2w_safe
-
-
